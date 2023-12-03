@@ -1,0 +1,29 @@
+{% extends 'mailing/base.html' %}
+{% block content %}
+  <main>
+    {% for object in object_list %}
+    <div class=" align-items-center justify-content-center">
+      <div class="list-group">
+        <a href="{% url 'mailing:mailing_detail' object.pk %}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+              <div>
+                <h6 class="mb-2">{{ object.mailing_name }}</h6>
+                <h8 class="mb-2">{{ object.periodicity }}</h8>
+                <h8 class="text-muted mb-1">{{ object.author }}</h8>
+              <div>
+                {% if object.status_mailing == 'created' %}
+                <span class="badge text-bg-warning rounded-pill">создана</span>
+                {% elif object.status_mailing == 'done' %}
+                <span class="badge text-bg-danger rounded-pill">завершена</span>
+                {% elif object.status_mailing == 'started' %}
+                <span class="badge text-bg-success rounded-pill">запущена</span>
+                {% endif %}
+                <small class="opacity-50 text-nowrap">{{ object.status }}</small>
+              </div>
+              </div>
+            </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+{% endblock %}
